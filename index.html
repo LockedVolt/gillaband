@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GILLA BAND — GIRAFFE</title>
+<!-- Replace YOURKITID with your Adobe Fonts project kit ID -->
+<link rel="stylesheet" href="https://use.typekit.net/ypv0iob.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --font: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+/* ── FULL-BLEED BACKGROUND ── */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* ── TITLE: GILLA BAND   GIRAFFE ──
+   Mockup: ~38% from top, ~64.6% from left, font ~1.15vw bold */
+.site-title {
+  position: fixed;
+  top: 45.9vh;
+  left: 64.6vw;
+  z-index: 10;
+  font-family: var(--font);
+  font-size: clamp(11px, 1.15vw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1;
+}
+.title-gap { display: inline-block; width: 2.4em; }
+
+/* ── NAV ──
+   Mockup: right edge ~3% from right, bottom of WAIT ~1% from bottom
+   So position from bottom-right. Nav stacks upward. */
+nav {
+  position: fixed;
+  bottom: 2.8vh;
+  right: 3.1vw;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* right-aligned, matching mockup */
+  gap: 0;
+}
+
+.nav-item {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: calc(clamp(28px, 4.17vw, 80px) - .0em);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  line-height: 1.3;
+  display: block;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+  /* giraffe neck animation variables */
+  --stretch: 0;
+}
+
+/* ── SOCIAL LINKS — bottom-left, parallel to WAIT ── */
+.social-links {
+  position: fixed;
+  bottom: 2.8vh;
+  left: 3.1vw;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8em;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.7);
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.social-links a:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: #fff;
+}
+
+.social-links svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+/* ── GIRAFFE ANIMATION ──
+   On hover: letters stretch upward one by one like a giraffe extending its neck,
+   then gracefully return. Each character scales vertically from its baseline. */
+.nav-item .ch {
+  display: inline-block;
+  transform-origin: center bottom;
+  will-change: transform, letter-spacing;
+}
+
+/* ── MODAL / LIGHTBOX ── */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-inner {
+  position: relative;
+  width: min(900px, 90vw);
+  transform: scale(0.94) translateY(14px);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+.modal.open .modal-inner {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: -1.9rem;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  transition: color 0.15s;
+}
+.modal-close:hover { color: #fff; }
+
+.video-wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #080808;
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.video-wrap svg { opacity: 0.12; }
+.video-wrap p {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+#yt-frame {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .bg {
+    background-position: 60% center;
+  }
+  .nav-item {
+    font-size: calc(clamp(28px, 4.17vw, 80px) + 0.2em);
+  }
+  .site-title {
+    left: 54vw;
+    right: 5vw;
+    white-space: normal;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- TITLE — top, matching mockup position -->
+<div class="site-title">GILLA BAND<span class="title-gap"></span>GIRAFFE</div>
+
+<!-- NAV — bottom right, right-aligned -->
+<nav>
+  <a class="nav-item" id="n-listen" href="listen.html">
+    <span class="ch">L</span><span class="ch">I</span><span class="ch">S</span><span class="ch">T</span><span class="ch">E</span><span class="ch">N</span>
+  </a>
+  <a class="nav-item" id="n-order" href="#">
+    <span class="ch">O</span><span class="ch">R</span><span class="ch">D</span><span class="ch">E</span><span class="ch">R</span>
+  </a>
+  <a class="nav-item" id="n-watch" href="#">
+    <span class="ch">W</span><span class="ch">A</span><span class="ch">T</span><span class="ch">C</span><span class="ch">H</span>
+  </a>
+  <a class="nav-item" id="n-wait" href="wait.html">
+    <span class="ch">W</span><span class="ch">A</span><span class="ch">I</span><span class="ch">T</span>
+  </a>
+</nav>
+
+<!-- SOCIAL LINKS — bottom left -->
+<div class="social-links">
+  <a href="https://www.instagram.com/gillaband" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+  <a href="https://www.facebook.com/girlband" target="_blank" rel="noopener" aria-label="Facebook">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    </svg>
+  </a>
+  <a href="https://twitter.com/gillaband" target="_blank" rel="noopener" aria-label="Twitter / X">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+  <a href="https://open.spotify.com/artist/7IdPmzvB3PugXieZE9vS4S" target="_blank" rel="noopener" aria-label="Spotify">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.36-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+  <a href="https://www.youtube.com/channel/UCeVtCaUUn2KLrlxO_puXGrQ" target="_blank" rel="noopener" aria-label="YouTube">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  </a>
+  <a href="https://music.apple.com/us/artist/gilla-band/260798711" target="_blank" rel="noopener" aria-label="Apple Music">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3z"/>
+    </svg>
+  </a>
+  <a href="https://gillaband.bandcamp.com/music" target="_blank" rel="noopener" aria-label="Bandcamp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M0 18.75l7.437-12.5H24L16.563 18.75z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- WATCH MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <button class="modal-close" id="modal-close">[ CLOSE ]</button>
+    <div class="video-wrap" id="video-placeholder">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+        <circle cx="26" cy="26" r="24.5" stroke="white" stroke-width="1"/>
+        <polygon points="21,16 21,36 39,26" fill="white"/>
+      </svg>
+      <p>Video coming soon</p>
+    </div>
+    <iframe id="yt-frame" src=""
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+/* ── CONFIGURE THESE WHEN READY ── */
+const ORDER_URL = '';   // ← your shop / Bandcamp link
+const WATCH_SRC = 'https://www.youtube.com/embed/D4SmyqO5DUU';   // ← https://www.youtube.com/embed/D4SmyqO5DUU
+
+/* ────────────────────────────────────────────────
+   GIRAFFE ANIMATION
+   Each letter stretches up from its baseline like
+   a giraffe extending its neck — tall, slow, graceful.
+   Letters animate in sequence left→right on mouseenter,
+   then collapse back right→left on mouseleave.
+   ──────────────────────────────────────────────── */
+
+function giraffStretch(chars, direction) {
+  // direction: 'in' = stretch up, 'out' = collapse back
+  chars.forEach((ch, i) => {
+    const delay = i * 38; // stagger ms between each letter
+    clearTimeout(ch._t);
+    ch._t = setTimeout(() => {
+      if (direction === 'in') {
+        // Neck extends: scaleY up, slight forward lean (skewX), rise up
+        ch.style.transition = 'transform 0.32s cubic-bezier(0.2, 0, 0.1, 1)';
+        ch.style.transform  = `scaleY(1.38) translateY(-12%) skewX(-3deg)`;
+        ch.style.opacity    = '0.82';
+      } else {
+        // Neck retracts: graceful ease back down
+        ch.style.transition = 'transform 0.22s cubic-bezier(0.4, 0, 0.6, 1)';
+        ch.style.transform  = 'scaleY(1) translateY(0) skewX(0deg)';
+        ch.style.opacity    = '1';
+      }
+    }, delay);
+  });
+}
+
+document.querySelectorAll('.nav-item').forEach(el => {
+  const chars = Array.from(el.querySelectorAll('.ch'));
+
+  el.addEventListener('mouseenter', () => {
+    el.style.zIndex = '2';
+    giraffStretch(chars, 'in');
+  });
+
+  el.addEventListener('mouseleave', () => {
+    // Collapse right→left (head comes down first)
+    giraffStretch([...chars].reverse(), 'out');
+    const resetDelay = chars.length * 38 + 220;
+    clearTimeout(el._zReset);
+    el._zReset = setTimeout(() => { el.style.zIndex = '1'; }, resetDelay);
+  });
+});
+
+/* ── ORDER ── */
+document.getElementById('n-order').addEventListener('click', e => {
+  e.preventDefault();
+  if (ORDER_URL) window.open(ORDER_URL, '_blank');
+});
+
+/* ── WATCH MODAL ── */
+const modal       = document.getElementById('modal');
+const ytFrame     = document.getElementById('yt-frame');
+const placeholder = document.getElementById('video-placeholder');
+
+function toEmbedUrl(raw) {
+  const s = raw.trim();
+  const m = s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  if (m) return 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1&rel=0';
+  return s ? s + (s.includes('?') ? '&' : '?') + 'autoplay=1&rel=0' : null;
+}
+
+document.getElementById('n-watch').addEventListener('click', e => {
+  e.preventDefault();
+  const embedUrl = toEmbedUrl(WATCH_SRC);
+  if (embedUrl) {
+    ytFrame.src = embedUrl;
+    ytFrame.style.cssText = 'display:block;width:100%;aspect-ratio:16/9;border:none;';
+    placeholder.style.display = 'none';
+  } else {
+    ytFrame.src = '';
+    ytFrame.style.display = 'none';
+    placeholder.style.display = 'flex';
+  }
+  modal.classList.add('open');
+});
+
+function closeModal() {
+  modal.classList.remove('open');
+  setTimeout(() => {
+    ytFrame.src = '';
+    ytFrame.style.display = 'none';
+    placeholder.style.display = 'flex';
+  }, 320);
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
