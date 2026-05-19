@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GILLA BAND — GIRAFFE</title>
-<!-- Replace YOURKITID with your Adobe Fonts project kit ID -->
 <link rel="stylesheet" href="https://use.typekit.net/ypv0iob.css">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,9 +14,10 @@
 
 html, body {
   width: 100%;
-  height: 100%;
   background: #000;
-  overflow: hidden;
+  overflow-x: hidden;
+    font-family: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  color: #fff !important;
 }
 
 /* ── FULL-BLEED BACKGROUND ── */
@@ -30,8 +30,14 @@ html, body {
   background-position: center;
 }
 
-/* ── TITLE: GILLA BAND   GIRAFFE ──
-   Mockup: ~38% from top, ~64.6% from left, font ~1.15vw bold */
+/* ── HERO — first viewport ── */
+.hero {
+  height: 100vh;
+  position: relative;
+  pointer-events: none;
+}
+
+/* ── TITLE ── */
 .site-title {
   position: fixed;
   top: 45.9vh;
@@ -49,9 +55,8 @@ html, body {
 }
 .title-gap { display: inline-block; width: 2.4em; }
 
-/* ── NAV ──
-   Mockup: right edge ~3% from right, bottom of WAIT ~1% from bottom
-   So position from bottom-right. Nav stacks upward. */
+
+/* ── NAV ── */
 nav {
   position: fixed;
   bottom: 2.8vh;
@@ -59,7 +64,7 @@ nav {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;   /* right-aligned, matching mockup */
+  align-items: flex-end;
   gap: 0;
 }
 
@@ -77,11 +82,18 @@ nav {
   user-select: none;
   position: relative;
   z-index: 1;
-  /* giraffe neck animation variables */
-  --stretch: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* ── SOCIAL LINKS — bottom-left, parallel to WAIT ── */
+nav:hover .nav-item {
+  opacity: 0.3;
+}
+
+nav:hover .nav-item:hover {
+  opacity: 1;
+}
+
+/* ── SOCIAL LINKS — bottom-left ── */
 .social-links {
   position: fixed;
   bottom: 2.8vh;
@@ -115,88 +127,430 @@ nav {
   height: 0.8em;
 }
 
-/* ── GIRAFFE ANIMATION ──
-   On hover: letters stretch upward one by one like a giraffe extending its neck,
-   then gracefully return. Each character scales vertically from its baseline. */
-.nav-item .ch {
-  display: inline-block;
-  transform-origin: center bottom;
-  will-change: transform, letter-spacing;
-}
-
-/* ── MODAL / LIGHTBOX ── */
-.modal {
+/* ── SCROLL HINT ── */
+.scroll-hint {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.92);
-  z-index: 300;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
+  bottom: 2.4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.5s ease;
   pointer-events: none;
-  transition: opacity 0.3s ease;
 }
-.modal.open {
-  opacity: 1;
-  pointer-events: all;
+.scroll-hint.hidden { opacity: 0; }
+.scroll-hint svg {
+  animation: bounceY 1.8s ease-in-out infinite;
+}
+@keyframes bounceY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
 }
 
-.modal-inner {
+/* ── PAGE CONTENT — sections below hero ── */
+.page-content {
   position: relative;
-  width: min(900px, 90vw);
-  transform: scale(0.94) translateY(14px);
-  opacity: 0;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-}
-.modal.open .modal-inner {
-  transform: scale(1) translateY(0);
-  opacity: 1;
+  z-index: 5;
+  background: #000;
 }
 
-.modal-close {
-  position: absolute;
-  top: -1.9rem;
-  right: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
+.section {
+  padding: 9vh 8vw;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.section-label {
   font-family: var(--font);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.26em;
+  font-weight: 700;
+  font-size: clamp(28px, 4.17vw, 80px);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.38);
-  transition: color 0.15s;
+  color: #ffffff;
+  margin-bottom: 4vh;
+  line-height: 1.3;
 }
-.modal-close:hover { color: #fff; }
 
-.video-wrap {
+/* ── VIDEO SECTION ── */
+#s-video iframe {
   width: 100%;
   aspect-ratio: 16/9;
-  background: #080808;
-  border: 1px solid rgba(255,255,255,0.07);
+  border: none;
+  display: block;
+}
+
+/* ── RECORD SECTION ── */
+.record-row {
+  display: flex;
+  gap: 2vw;
+  align-items: flex-start;
+}
+
+.record-link {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-.video-wrap svg { opacity: 0.12; }
-.video-wrap p {
-  font-family: var(--font);
-  font-weight: 600;
-  font-size: 0.62rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.2);
+  gap: 1.4em;
+  text-decoration: none;
 }
 
-#yt-frame {
+.record-img {
   width: 100%;
-  aspect-ratio: 16/9;
-  border: none;
-  display: none;
+  display: block;
+  transition: opacity 0.25s ease;
+}
+.record-link:hover .record-img {
+  opacity: 0.85;
+}
+
+.record-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.4em;
+  padding-left: 2vw;
+}
+
+.record-eyebrow {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: clamp(9px, 0.68vw, 11px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+.record-title {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(28px, 4.17vw, 80px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.record-body {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 17px);
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  max-width: 38ch;
+}
+
+.record-btns {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.record-btn {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(10px, 0.8vw, 13px);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75em 1.8em;
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff;
+  transition: background 0.2s, border-color 0.2s;
+}
+.record-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: #fff;
+}
+.record-btn--fill {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+.record-btn--fill:hover {
+  background: rgba(255,255,255,0.85);
+}
+
+@media (max-width: 768px) {
+  .record-row { flex-direction: column; gap: 5vh; }
+  .record-info { padding-left: 0; }
+}
+
+/* ── TOUR / SONGKICK ── */
+#tour-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#tour-list li {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  padding: 2.2vh 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+#tour-list li:first-child {
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.tour-date {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(10px, 0.72vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.32);
+  min-width: 9em;
+  white-space: nowrap;
+}
+
+.tour-venue {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(14px, 1.15vw, 20px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  flex: 1;
+}
+
+.tour-city {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: clamp(10px, 0.78vw, 13px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+
+.tour-ticket {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(8px, 0.62vw, 10px);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.28);
+  padding: 0.55em 1.4em;
+  white-space: nowrap;
+  transition: color 0.18s, border-color 0.18s;
+}
+.tour-ticket:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+#tour-status {
+  font-family: var(--font);
+  font-size: clamp(11px, 0.85vw, 14px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+}
+
+.tour-sk-logo {
+  margin-top: 3vh;
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+
+
+/* ── SIGNUP / MOOSEND ── */
+#s-signup {
+  text-align: left;
+}
+
+#s-signup .signup-sub {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 17px);
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  max-width: 42ch;
+  margin-bottom: 4vh;
+}
+
+/* Moosend form container */
+[data-mooform-id],
+[data-mooform-id] * {
+  font-family: var(--font) !important;
+  box-sizing: border-box;
+}
+
+/* Strip Moosend's wrapper styling */
+[data-mooform-id] form,
+[data-mooform-id] .mooform-container,
+[data-mooform-id] .mooform-wrapper,
+[data-mooform-id] > div {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Input fields */
+[data-mooform-id] input[type="text"],
+[data-mooform-id] input[type="email"],
+[data-mooform-id] input {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255,255,255,0.28) !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  font-family: var(--font) !important;
+  font-weight: 600 !important;
+  font-size: clamp(12px, 0.9vw, 15px) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  padding: 0.8em 0 !important;
+  outline: none !important;
+  width: 100% !important;
+  transition: border-color 0.2s !important;
+}
+
+[data-mooform-id] input::placeholder {
+  color: #fff !important;
+  letter-spacing: 0.18em;
+  opacity: 1 !important;
+}
+
+[data-mooform-id] input:focus {
+  border-bottom-color: #fff !important;
+}
+
+/* Labels */
+[data-mooform-id] label {
+  font-family: var(--font) !important;
+  font-weight: 600 !important;
+  font-size: clamp(11px, 0.9vw, 13px) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,0.55) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* All text in the form */
+[data-mooform-id] p,
+[data-mooform-id] span,
+[data-mooform-id] div,
+[data-mooform-id] a {
+  color: #fff !important;
+  font-family: var(--font) !important;
+}
+
+/* Checkbox — GDPR */
+[data-mooform-id] input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  height: 14px !important;
+  min-width: 14px !important;
+  border: 1px solid rgba(255,255,255,0.5) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  position: relative !important;
+  margin-right: 0.7em !important;
+  vertical-align: middle !important;
+  transition: border-color 0.18s, background 0.18s !important;
+}
+
+[data-mooform-id] input[type="checkbox"]:checked {
+  background: #fff !important;
+  border-color: #fff !important;
+}
+
+[data-mooform-id] input[type="checkbox"]:checked::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 3px !important;
+  top: 1px !important;
+  width: 5px !important;
+  height: 8px !important;
+  border: 1.5px solid #000 !important;
+  border-top: none !important;
+  border-left: none !important;
+  transform: rotate(45deg) !important;
+  display: block !important;
+}
+
+/* Checkbox row alignment */
+[data-mooform-id] .mooform-field:has(input[type="checkbox"]),
+[data-mooform-id] .field-wrapper:has(input[type="checkbox"]) {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.5em !important;
+  border: none !important;
+}
+
+/* Field wrappers */
+[data-mooform-id] .mooform-field,
+[data-mooform-id] .field-wrapper,
+[data-mooform-id] .moo-field {
+  background: transparent !important;
+  border: none !important;
+  font-family:#fff;
+  margin-bottom: 3vh !important;
+  padding: 0 !important;
+}
+
+/* Submit button */
+[data-mooform-id] button[type="submit"],
+[data-mooform-id] input[type="submit"],
+[data-mooform-id] .mooform-submit {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.45) !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  font-family: var(--font) !important;
+  font-weight: 700 !important;
+  font-size: clamp(9px, 0.7vw, 11px) !important;
+  letter-spacing: 0.28em !important;
+  text-transform: uppercase !important;
+  padding: 0.85em 2.4em !important;
+  cursor: pointer !important;
+  transition: background 0.2s, border-color 0.2s !important;
+  margin-top: 1vh !important;
+}
+
+[data-mooform-id] button[type="submit"]:hover,
+[data-mooform-id] input[type="submit"]:hover {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: #fff !important;
+}
+
+/* Success / error messages */
+[data-mooform-id] .mooform-success,
+[data-mooform-id] .mooform-error {
+  font-family: var(--font) !important;
+  font-size: clamp(9px, 0.72vw, 12px) !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  padding: 1em 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+[data-mooform-id] .mooform-success { color: rgba(255,255,255,0.55) !important; }
+[data-mooform-id] .mooform-error   { color: rgba(255,100,100,0.7) !important; }
+
+/* ── FOOTER ── */
+.site-footer {
+  padding: 5vh 8vw;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font);
+  font-size: clamp(8px, 0.6vw, 10px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.14);
 }
 
 @media (max-width: 768px) {
@@ -209,8 +563,11 @@ nav {
   .site-title {
     left: 54vw;
     right: 5vw;
-    font-size:.8em;
+    font-size: .8em;
     white-space: normal;
+  }
+  .section {
+    padding: 7vh 6vw;
   }
 }
 </style>
@@ -219,10 +576,11 @@ nav {
 
 <div class="bg"></div>
 
-<!-- TITLE — top, matching mockup position -->
+<!-- ── HERO ── -->
+<div class="hero"></div>
+
 <div class="site-title">GILLA BAND<span class="title-gap"></span>GIRAFFE</div>
 
-<!-- NAV — bottom right, right-aligned -->
 <nav>
   <a class="nav-item" id="n-listen" href="listen.html">
     <span class="ch">L</span><span class="ch">I</span><span class="ch">S</span><span class="ch">T</span><span class="ch">E</span><span class="ch">N</span>
@@ -233,12 +591,14 @@ nav {
   <a class="nav-item" id="n-watch" href="#">
     <span class="ch">W</span><span class="ch">A</span><span class="ch">T</span><span class="ch">C</span><span class="ch">H</span>
   </a>
+  <a class="nav-item" id="n-signup" href="#s-signup">
+    <span class="ch">S</span><span class="ch">I</span><span class="ch">G</span><span class="ch">N</span><span class="ch"> </span><span class="ch">U</span><span class="ch">P</span>
+  </a>
   <a class="nav-item" id="n-wait" href="wait.html">
     <span class="ch">W</span><span class="ch">A</span><span class="ch">I</span><span class="ch">T</span>
   </a>
 </nav>
 
-<!-- SOCIAL LINKS — bottom left -->
 <div class="social-links">
   <a href="https://www.instagram.com/gillaband" target="_blank" rel="noopener" aria-label="Instagram">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -247,19 +607,14 @@ nav {
       <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
     </svg>
   </a>
-  <a href="https://www.facebook.com/girlband" target="_blank" rel="noopener" aria-label="Facebook">
+  <a href="https://www.facebook.com/gillaband/" target="_blank" rel="noopener" aria-label="Facebook">
     <svg viewBox="0 0 24 24" fill="currentColor">
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
     </svg>
   </a>
-  <a href="https://twitter.com/gillaband" target="_blank" rel="noopener" aria-label="Twitter / X">
+  <a href="https://gillaband.bandcamp.com/music" target="_blank" rel="noopener" aria-label="Bandcamp">
     <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-    </svg>
-  </a>
-  <a href="https://open.spotify.com/artist/7IdPmzvB3PugXieZE9vS4S" target="_blank" rel="noopener" aria-label="Spotify">
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.36-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      <path d="M0 18.75l7.437-12.5H24L16.563 18.75z"/>
     </svg>
   </a>
   <a href="https://www.youtube.com/channel/UCeVtCaUUn2KLrlxO_puXGrQ" target="_blank" rel="noopener" aria-label="YouTube">
@@ -272,126 +627,167 @@ nav {
       <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3z"/>
     </svg>
   </a>
-  <a href="https://gillaband.bandcamp.com/music" target="_blank" rel="noopener" aria-label="Bandcamp">
+  <a href="https://open.spotify.com/artist/7IdPmzvB3PugXieZE9vS4S" target="_blank" rel="noopener" aria-label="Spotify">
     <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M0 18.75l7.437-12.5H24L16.563 18.75z"/>
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.36-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
     </svg>
   </a>
 </div>
 
-<!-- WATCH MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-inner">
-    <button class="modal-close" id="modal-close">[ CLOSE ]</button>
-    <div class="video-wrap" id="video-placeholder">
-      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-        <circle cx="26" cy="26" r="24.5" stroke="white" stroke-width="1"/>
-        <polygon points="21,16 21,36 39,26" fill="white"/>
-      </svg>
-      <p>Video coming soon</p>
+<!-- ── SCROLL HINT ── -->
+<div class="scroll-hint" id="scroll-hint">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M8 3v10M3 9l5 5 5-5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<!-- ── PAGE CONTENT ── -->
+<div class="page-content">
+
+  <!-- VIDEO -->
+  <section class="section" id="s-video">
+    <div class="section-label">Watch</div>
+    <iframe id="yt-embed" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </section>
+
+  <!-- RECORD / ORDER -->
+  <section class="section" id="s-record">
+    <div class="section-label">Order</div>
+    <div class="record-row">
+      <a class="record-link" id="record-link" href="#">
+        <img class="record-img" src="packshot.jpg" alt="Gilla Band — Giraffe 7&quot;">
+      </a>
+      <div class="record-info">
+        <span class="record-eyebrow">New Single</span>
+        <h2 class="record-title">Giraffe</h2>
+        <p class="record-body">The new single from Gilla Band — a visceral, shape-shifting track taken from their forthcoming record. Out now on all platforms.</p>
+        <div class="record-btns">
+          <a class="record-btn" href="listen.html">Listen</a>
+          <a class="record-btn record-btn--fill" id="record-btn-buy" href="#">Buy</a>
+        </div>
+      </div>
     </div>
-    <iframe id="yt-frame" src=""
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen></iframe>
-  </div>
+  </section>
+
+  <!-- TOUR DATES -->
+  <section class="section" id="s-tour">
+    <div class="section-label">Tour Dates</div>
+    <p id="tour-status">Loading…</p>
+    <ul id="tour-list"></ul>
+    <a class="tour-sk-logo" href="https://www.songkick.com" target="_blank" rel="noopener">
+      <img src="https://widget.songkick.com/logos/powered-by-songkick-light.png" alt="Powered by Songkick" height="16">
+    </a>
+  </section>
+
+  <!-- SIGNUP -->
+  <section class="section" id="s-signup">
+    <div class="section-label">Sign Up</div>
+    <p class="signup-sub">Stay up to date with new music, tour dates, and news from Gilla Band.</p>
+    <div data-mooform-id="0da85ba0-fe63-4666-ad78-ab35750181e4"></div>
+    <script>if(!window.mootrack){ !function(t,n,e,o,a){function d(t){var n=~~(Date.now()/3e5),o=document.createElement(e);o.async=!0,o.src=t+"?ts="+n;var a=document.getElementsByTagName(e)[0];a.parentNode.insertBefore(o,a)}t.MooTrackerObject=a,t[a]=t[a]||function(){return t[a].q?void t[a].q.push(arguments):void(t[a].q=[arguments])},window.attachEvent?window.attachEvent("onload",d.bind(this,o)):window.addEventListener("load",d.bind(this,o),!1)}(window,document,"script","https://cdn.stat-track.com/statics/moosend-tracking.min.js","mootrack"); } mootrack('loadForm', '0da85ba0fe634666ad78ab35750181e4');</script>
+  </section>
+
+  <footer class="site-footer">© Gilla Band</footer>
+
 </div>
 
 <script>
-/* ── CONFIGURE THESE WHEN READY ── */
-const ORDER_URL = '';   // ← your shop / Bandcamp link
-const WATCH_SRC = 'https://www.youtube.com/embed/D4SmyqO5DUU';   // ← https://www.youtube.com/embed/D4SmyqO5DUU
+/* ── CONFIGURE ── */
+const ORDER_URL         = '';       // ← your shop / Bandcamp link
+const WATCH_SRC         = 'https://www.youtube.com/embed/D4SmyqO5DUU';
+const SONGKICK_API_KEY  = '';       // ← paste your Songkick API key here (developer.songkick.com)
+const SONGKICK_ARTIST   = '10184465';
 
-/* ────────────────────────────────────────────────
-   GIRAFFE ANIMATION
-   Each letter stretches up from its baseline like
-   a giraffe extending its neck — tall, slow, graceful.
-   Letters animate in sequence left→right on mouseenter,
-   then collapse back right→left on mouseleave.
-   ──────────────────────────────────────────────── */
-
-function giraffStretch(chars, direction) {
-  // direction: 'in' = stretch up, 'out' = collapse back
-  chars.forEach((ch, i) => {
-    const delay = i * 38; // stagger ms between each letter
-    clearTimeout(ch._t);
-    ch._t = setTimeout(() => {
-      if (direction === 'in') {
-        // Neck extends: scaleY up, slight forward lean (skewX), rise up
-        ch.style.transition = 'transform 0.32s cubic-bezier(0.2, 0, 0.1, 1)';
-        ch.style.transform  = `scaleY(1.38) translateY(-12%) skewX(-3deg)`;
-        ch.style.opacity    = '0.82';
-      } else {
-        // Neck retracts: graceful ease back down
-        ch.style.transition = 'transform 0.22s cubic-bezier(0.4, 0, 0.6, 1)';
-        ch.style.transform  = 'scaleY(1) translateY(0) skewX(0deg)';
-        ch.style.opacity    = '1';
-      }
-    }, delay);
-  });
-}
-
-document.querySelectorAll('.nav-item').forEach(el => {
-  const chars = Array.from(el.querySelectorAll('.ch'));
-
-  el.addEventListener('mouseenter', () => {
-    el.style.zIndex = '2';
-    giraffStretch(chars, 'in');
-  });
-
-  el.addEventListener('mouseleave', () => {
-    // Collapse right→left (head comes down first)
-    giraffStretch([...chars].reverse(), 'out');
-    const resetDelay = chars.length * 38 + 220;
-    clearTimeout(el._zReset);
-    el._zReset = setTimeout(() => { el.style.zIndex = '1'; }, resetDelay);
-  });
-});
-
-/* ── ORDER ── */
-document.getElementById('n-order').addEventListener('click', e => {
-  e.preventDefault();
-  if (ORDER_URL) window.open(ORDER_URL, '_blank');
-});
-
-/* ── WATCH MODAL ── */
-const modal       = document.getElementById('modal');
-const ytFrame     = document.getElementById('yt-frame');
-const placeholder = document.getElementById('video-placeholder');
-
-function toEmbedUrl(raw) {
-  const s = raw.trim();
+/* ── WIRE UP VIDEO EMBED ── */
+(function () {
+  const s = WATCH_SRC.trim();
   const m = s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
-  if (m) return 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1&rel=0';
-  return s ? s + (s.includes('?') ? '&' : '?') + 'autoplay=1&rel=0' : null;
-}
+  const id = m ? m[1] : null;
+  if (id) {
+    document.getElementById('yt-embed').src =
+      'https://www.youtube.com/embed/' + id + '?rel=0';
+  }
+})();
 
+/* ── WIRE UP ORDER LINK ── */
+document.getElementById('record-link').href = ORDER_URL || '#';
+document.getElementById('record-link').addEventListener('click', e => {
+  if (!ORDER_URL) e.preventDefault();
+  else window.open(ORDER_URL, '_blank');
+});
+
+/* ── NAV SCROLL ── */
 document.getElementById('n-watch').addEventListener('click', e => {
   e.preventDefault();
-  const embedUrl = toEmbedUrl(WATCH_SRC);
-  if (embedUrl) {
-    ytFrame.src = embedUrl;
-    ytFrame.style.cssText = 'display:block;width:100%;aspect-ratio:16/9;border:none;';
-    placeholder.style.display = 'none';
-  } else {
-    ytFrame.src = '';
-    ytFrame.style.display = 'none';
-    placeholder.style.display = 'flex';
-  }
-  modal.classList.add('open');
+  document.getElementById('s-video').scrollIntoView({ behavior: 'smooth' });
 });
 
-function closeModal() {
-  modal.classList.remove('open');
-  setTimeout(() => {
-    ytFrame.src = '';
-    ytFrame.style.display = 'none';
-    placeholder.style.display = 'flex';
-  }, 320);
-}
+document.getElementById('n-order').addEventListener('click', e => {
+  e.preventDefault();
+  document.getElementById('s-record').scrollIntoView({ behavior: 'smooth' });
+});
 
-document.getElementById('modal-close').addEventListener('click', closeModal);
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+/* ── TOUR DATES ── */
+(function () {
+  const status = document.getElementById('tour-status');
+  const list   = document.getElementById('tour-list');
+
+  if (!SONGKICK_API_KEY) {
+    status.textContent = 'Tour dates coming soon.';
+    return;
+  }
+
+  const url = `https://api.songkick.com/api/3.0/artists/${SONGKICK_ARTIST}/calendar.json?apikey=${SONGKICK_API_KEY}`;
+
+  fetch(url)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      const events = (data.resultsPage.results.event || []);
+      status.hidden = true;
+      if (!events.length) {
+        status.textContent = 'No upcoming tour dates.';
+        status.hidden = false;
+        return;
+      }
+      events.forEach(ev => {
+        const date  = ev.start.date
+          ? new Date(ev.start.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+          : '';
+        const venue = ev.venue?.displayName || ev.displayName;
+        const city  = ev.location?.city || '';
+        const link  = ev.uri || '#';
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span class="tour-date">${date}</span>
+          <span class="tour-venue">${venue}</span>
+          <span class="tour-city">${city}</span>
+          <a class="tour-ticket" href="${link}" target="_blank" rel="noopener">Tickets</a>`;
+        list.appendChild(li);
+      });
+    })
+    .catch(() => {
+      status.textContent = 'Could not load tour dates.';
+    });
+})();
+
+/* ── HERO FADE ON SCROLL ── */
+const heroEls = [
+  document.querySelector('.bg'),
+  document.querySelector('.site-title'),
+  document.querySelector('nav'),
+  document.querySelector('.social-links'),
+  document.getElementById('scroll-hint'),
+];
+
+window.addEventListener('scroll', () => {
+  const progress = Math.min(1, window.scrollY / (window.innerHeight * 0.55));
+  const opacity  = 1 - progress;
+  heroEls.forEach(el => {
+    el.style.opacity       = opacity;
+    el.style.pointerEvents = progress > 0.5 ? 'none' : '';
+  });
+}, { passive: true });
 </script>
 </body>
 </html>
