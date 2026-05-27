@@ -24,7 +24,7 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url('bg.jpg');
+  background-image: url('../bg.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -36,41 +36,47 @@ html, body {
   left: 71.6vw;
   z-index: 10;
   font-family: var(--font);
-  font-size: clamp(11px, 1.15vw, 22px);
+  font-size: clamp(18px, 1.15vw, 72px);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #ffffff;
   white-space: nowrap;
-  pointer-events: none;
   line-height: 1;
+  text-decoration: none;
 }
 .title-gap { display: inline-block; width: 2.4em; }
 
-/* BACK LINK */
-.back {
-  position: fixed;
-  top: 45.9vh;
-  left: 3.1vw;
-  z-index: 10;
-  font-family: var(--font);
-  font-size: clamp(9px, 0.75vw, 14px);
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--dim);
-  text-decoration: none;
-  transition: color 0.15s;
-  line-height: 1;
-}
-.back:hover { color: #fff; }
-
-/* COUNTDOWN — same position/size as nav on homepage */
-.countdown {
+/* BACK + COUNTDOWN WRAPPER */
+.bottom-right {
   position: fixed;
   bottom: 2.8vh;
   right: 3.1vw;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2.5vh;
+}
+
+/* BACK LINK */
+.back {
+  font-family: var(--font);
+  font-size: clamp(11px, 0.85vw, 15px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1;
+  border: 1px solid rgba(255,255,255,0.8);
+  padding: 0.7em 1.6em;
+  transition: background 0.15s, border-color 0.15s;
+}
+.back:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+
+/* COUNTDOWN */
+.countdown {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -119,10 +125,6 @@ html, body {
 
 /* OUT NOW — shown when countdown expires */
 .out-now {
-  position: fixed;
-  bottom: 2.8vh;
-  right: 3.1vw;
-  z-index: 10;
   font-family: var(--font);
   font-weight: 700;
   font-size: clamp(28px, 4.17vw, 80px);
@@ -181,13 +183,28 @@ html, body {
   .site-title { left: 54vw; right: 5vw; font-size: .8em; white-space: normal; }
 }
 </style>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WBC8W4Q');</script>
+<!-- End Google Tag Manager -->
+
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBC8W4Q"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <div class="bg"></div>
 
-<div class="site-title">GILLA BAND</div>
-<a class="back" href="index.html">← Back</a>
+<a class="site-title" href="../index.html">GILLA BAND</a>
+<div class="bottom-right">
+<a class="back" href="../index.html">← Back</a>
 
 <div class="countdown" id="cd">
   <div class="unit">
@@ -212,6 +229,7 @@ html, body {
 </div>
 
 <div class="out-now" id="out-now">Out Now</div>
+</div>
 
 <!-- SOCIAL LINKS — bottom left -->
 <div class="social-links">
@@ -256,7 +274,7 @@ html, body {
 
 <script>
 /* ── SET RELEASE DATE HERE ── */
-const TARGET = new Date('2026-06-27T22:00:00'); // Jun 27 10pm local time
+const TARGET = new Date('2026-07-07T12:00:00+01:00'); // Jul 7 12pm BST (UK)
 
 const D = document.getElementById('cd-d');
 const H = document.getElementById('cd-h');
