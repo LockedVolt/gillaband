@@ -58,7 +58,7 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url('bg.jpg');
+  background-image: url('Gillaband_Panitings-2.png');
   background-size: cover;
   background-position: center;
 }
@@ -73,8 +73,8 @@ html, body {
 /* ── TITLE ── */
 .site-title {
   position: fixed;
-  top: 45.9vh;
-  left: 71.6vw;
+  top: 25.9vh;
+  left: 45%;
   z-index: 10;
   font-family: var(--font);
   font-size: clamp(18px, 1.15vw, 72px);
@@ -86,6 +86,25 @@ html, body {
   pointer-events: none;
   line-height: 1;
 }
+    
+    .album-title {
+  position: fixed;
+  top: 72.9vh;
+  left: 47%;
+ 
+  font-family: var(--font);
+  font-size: clamp(18px, 1.15vw, 72px);
+  font-weight: bold;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1;
+}
+    
+    
+    
 .title-gap { display: inline-block; width: 2.4em; }
 
 
@@ -565,6 +584,108 @@ p{
 [data-mooform-id] .mooform-success { color: rgba(255,255,255,0.55) !important; }
 [data-mooform-id] .mooform-error   { color: rgba(255,100,100,0.7) !important; }
 
+/* ── LYRICS ── */
+#lyrics-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#lyrics-list li {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  transition: opacity 0.3s ease;
+}
+
+#lyrics-list li:first-child {
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+#lyrics-list:hover .lyrics-item {
+  opacity: 0.3;
+}
+
+#lyrics-list:hover .lyrics-item:hover {
+  opacity: 1;
+}
+
+#lyrics-list:hover .lyrics-item.unavailable:hover {
+  opacity: 0.8;
+}
+
+.lyrics-item.unavailable {
+  opacity: 0.8;
+  cursor: default;
+}
+
+.lyrics-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.2vh 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lyrics-item.unavailable .lyrics-track {
+  cursor: default;
+}
+
+.lyrics-track-title {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(14px, 1.15vw, 20px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.lyrics-track-num {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(10px, 0.72vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.32);
+  min-width: 3em;
+}
+
+.lyrics-track-arrow {
+  font-size: clamp(10px, 0.72vw, 12px);
+  color: rgba(255,255,255,0.32);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.lyrics-item.unavailable .lyrics-track-arrow {
+  opacity: 0;
+}
+
+.lyrics-item.open .lyrics-track-arrow {
+  transform: rotate(180deg);
+}
+
+.lyrics-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.lyrics-item.open .lyrics-body {
+  max-height: 2000px;
+}
+
+.lyrics-text {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 17px);
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.55);
+  line-height: 2;
+  padding: 2vh 0 4vh;
+  white-space: pre-line;
+  max-width: 60ch;
+}
+
 /* ── FOOTER ── */
 .site-footer {
   padding: 5vh 8vw;
@@ -634,7 +755,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ── HERO ── -->
 <div class="hero"></div>
 
-<div class="site-title">GILLA BAND<span class="title-gap"></span>GIRAFFE</div>
+<div class="site-title">GILLA BAND<span class="title-gap"></span></div>
+<div class="album-title">Pugnello<span class="title-gap"></span></div>
 
 <nav>
   <a class="nav-item" id="n-listen" href="https://gillaband.ffm.to/giraffe">
@@ -645,6 +767,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
   <a class="nav-item" id="n-watch" href="#">
     <span class="ch">W</span><span class="ch">A</span><span class="ch">T</span><span class="ch">C</span><span class="ch">H</span>
+  </a>  
+  
+  <a class="nav-item" id="n-lyrics" href="#lyrics">
+    <span class="ch">L</span><span class="ch">Y</span><span class="ch">R</span><span class="ch">I</span><span class="ch">C</span><span class="ch">S</span>
   </a>
   <a class="nav-item" id="n-live" href="#live">
     <span class="ch">L</span><span class="ch">I</span><span class="ch">V</span><span class="ch">E</span>
@@ -652,9 +778,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="nav-item" id="n-signup" href="#s-signup">
     <span class="ch">S</span><span class="ch">I</span><span class="ch">G</span><span class="ch">N</span><span class="ch"> </span><span class="ch">U</span><span class="ch">P</span>
   </a>
-  <a class="nav-item" id="n-wait" href="/wait">
-    <span class="ch">W</span><span class="ch">A</span><span class="ch">I</span><span class="ch">T</span>
-  </a>
+
 </nav>
 
 <div class="social-links">
