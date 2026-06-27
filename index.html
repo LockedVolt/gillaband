@@ -686,6 +686,78 @@ p{
   max-width: 60ch;
 }
 
+/* ── READ MORE BUTTON ── */
+.read-more-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(9px, 0.7vw, 11px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  padding: 0.75em 0;
+  cursor: pointer;
+  margin-bottom: 1.4em;
+  transition: color 0.2s;
+}
+.read-more-btn:hover { color: #fff; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-box {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 680px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 6vh 5vw;
+  position: relative;
+  transform: translateY(12px);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.open .modal-box {
+  transform: translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: 2.4vh;
+  right: 2vw;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 1.4em;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: #fff; }
+.modal-body {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 17px);
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+}
+.modal-body p + p { margin-top: 1.4em; }
+
 /* ── FOOTER ── */
 .site-footer {
   padding: 5vh 8vw;
@@ -838,20 +910,295 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="record-row"> 
       <a class="record-link" id="record-link" href="https://gillaband.ffm.to/giraffe">
         <div class="record-img-wrap">
-          <img class="record-img" id="packshot-a" src="packshot_front.jpg" alt="Gilla Band — Giraffe 7&quot; front">
-          <img class="record-img hidden" id="packshot-b" src="packshot_back.jpg" alt="Gilla Band — Giraffe 7&quot; back">
+          <img class="record-img" id="packshot-a" src="1x1_LP_01.jpg" alt="Gilla Band — Pugnello LP front">
+          <img class="record-img hidden" id="packshot-b" src="1x1_LP_02.jpg" alt="Gilla Band — Pugnello LP back">
         </div>
       </a>
       <div class="record-info">
-        <span class="record-eyebrow">New Single</span>
-        <h2 class="record-title">Giraffe</h2>
-        <p class="record-body">The new single from Gilla Band - released as a limited edition 7" picture disc. Out now on all platforms.</p>
+        <span class="record-eyebrow">New Album</span>
+        <h2 class="record-title">Pugnello</h2>
+        <p class="record-body">Gilla Band never know where they're going next. For over ten years now, the Dublin quartet have been redefining what you could loosely call "rock music" in the 21st century, influencing a wide swath of similarly forward-thinking guitar acts along the way.</p>
+        <button class="record-btn read-more-btn" id="blurb-read-more">Read More</button>
         <div class="record-btns">
           <a class="record-btn" href="https://gillaband.ffm.to/giraffe">Listen</a>
           <a class="record-btn record-btn--fill" id="record-btn-buy" href="https://gillaband.ffm.to/giraffe ">Buy</a>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- LYRICS -->
+  <section class="section" id="lyrics">
+    <div class="section-label">Lyrics</div>
+    <ul id="lyrics-list">
+
+      <li class="lyrics-item" data-track="the-angelus">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">01</span>
+          <span class="lyrics-track-title">The Angelus</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="placeholder">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">02</span>
+          <span class="lyrics-track-title">Placeholder</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Hi I'm very shy
+I'm that kinda guy
+I'm a little Bi-polar
+
+Davina McCall's pause
+Charles Ingram's cough
+Harold Lloyd's clock
+
+Placeholder
+
+I'm injecting a lethal dose of nothing
+I'm blaring a dangerous amount of Coldplay
+
+Dad rock already
+Sleeping with your teddy
+Pissed the bed lately
+At home
+
+Licence for the TV
+Feel bad but it's funny
+Teletubby belly
+Eh oh
+
+The wisdom of Crazy Frog
+Polyphonic slog
+You've got a phone call from hell
+
+Phoneroticaddiction
+Handy in the kitchen
+Not a pot to piss in or spill
+
+Phonerotica
+
+That was a bit weird
+The ghost is clear
+I'd kiss you but there's sick in my beard
+Half watching the Phantom Menace on repeat
+Dara-cula teeth
+I'm just future meat
+Giving it the Desmonds
+The full Desmonds
+Who's your favourite parent?
+Is it your man?
+Or your one?
+Or your one?
+Or your man?
+Why is being horizontal wrong?
+What do you want to die from?
+
+Good by(e) the way I'm shy
+It's morphing time
+When I grow up I'm going to be a Power Ranger
+
+Glugging Lemsip
+Chatting with the gimp
+Cowboy hats at gigs works on paper
+
+Stomach has a hint
+Also has a limp
+My mind's a bully and it never ends
+
+Coasters for the table
+Technically disabled
+Fashioning The Rachel from Friends
+
+I'm injecting a lethal dose of nothing
+I'm blaring a dangerous amount of Coldplay
+
+Good by(e) the way I'm
+But only on the sly
+When I grow up I'm gonna talk to strangers
+
+Glugging Lemsip
+It's me in the nip with a dog
+That's watching Neighbours
+
+Stomach as a limp
+Also has a hint
+That Thunderbirds are go and gone
+
+Coasters for the table
+My dad wasn't able
+I'm a fatherless fuck
+In the dead dad's club
+
+I'm injecting a lethal dose of nothing
+I'm blaring a dangerous amount of Coldplay</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="alogia">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">03</span>
+          <span class="lyrics-track-title">Alogia</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="three-hands-clapping">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">04</span>
+          <span class="lyrics-track-title">Three Hands Clapping</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="jacobsons">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">05</span>
+          <span class="lyrics-track-title">Jacobsons</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="the-megazord">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">06</span>
+          <span class="lyrics-track-title">The Megazord</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="computer-sadness">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">07</span>
+          <span class="lyrics-track-title">Computer Sadness</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="giraffe">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">08</span>
+          <span class="lyrics-track-title">Giraffe</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Wine rings on the highchair
+Today the world woke you up without you
+
+Burping the beta-bet
+Little death
+Soft teeth
+Gappy little freak
+Trench feet
+Remember the heat
+
+Twenty quid coupons for groceries
+Cut it long
+I want it on DVD
+The eel that wants to squeal
+A daft giraffe telling tall tales
+He may be a paragraph behind but he's Dara-graph ahead
+Right on the lid and on the left-side of the bed
+
+Donate half a kidney
+Yesterday the world fell asleep without me
+Don't say the C word you can't
+Don't say the C word you can't
+Don't say the C word you can't
+
+Hear all your views on Sky Sports News
+It's getting a bit graphic
+Did you get my blood?
+Write back
+
+Hear all your views on Sky Sports News
+It's getting a bit graphic
+Did you get my …? No
+
+No perfect people like you
+Sleeping in drains
+Now McCartney is cool
+That also means Wings
+
+That caramelic smoke
+That Gealt-ian bloke
+That second oak
+That useless can of Diet Coke
+
+If you're gonna do it wrong do it right
+That's the difference between shit and shite
+
+If you're gonna do it wrong do it right
+That's the difference between shit and shite
+
+And who be this cheeky seventy something stupid sexy sense of self?
+And shoe away the wizardry wonderfully wise wishing you with welcome wealth
+
+Like saying like too much
+Like saying like too much
+
+Copying The Fall and getting caught
+
+And who is this fucker?
+A great listener and a looker
+The world got there before you
+
+Queuing at McDonald's tablets
+No good habits
+Absolutely loving it
+
+The creature in your pupils
+Teaching you shit skills teaching you shit
+The creature in your pupils
+Talking to someone you don't know on pills at all
+
+She chased me out the door with a hairbrush demanding that I would wear a suitable jacket</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="crisp-pop">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">09</span>
+          <span class="lyrics-track-title">Crisp Pop</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+      <li class="lyrics-item" data-track="at-the-gallop">
+        <div class="lyrics-track">
+          <span class="lyrics-track-num">10</span>
+          <span class="lyrics-track-title">At The Gallop</span>
+          <span class="lyrics-track-arrow">↓</span>
+        </div>
+        <div class="lyrics-body">
+          <p class="lyrics-text">Coming Soon</p>
+        </div>
+      </li>
+
+    </ul>
   </section>
 
   <!-- LIVE -->
@@ -871,6 +1218,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <footer class="site-footer">© Gilla Band</footer>
 
+</div>
+
+<!-- ── BLURB MODAL ── -->
+<div class="modal-overlay" id="blurb-modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="modal-close" id="blurb-modal-close" aria-label="Close">✕</button>
+    <div class="modal-body">
+      <p>Gilla Band never know where they're going next. For over ten years now, the Dublin quartet — vocalist Dara Kiely, guitarist Alan Duggan Borges, bassist Daniel Fox, and drummer Adam Faulkner — have been redefining what you could loosely call "rock music" in the 21st century, influencing a wide swath of similarly forward-thinking guitar acts along the way. Across 2015's Holding Hands With Jamie, 2019's The Talkies, and 2022's Most Normal, the band perfected a vision that wasn't quite post-punk, wasn't quite noise-rock, wasn't quite anything besides an idiosyncratic, ground-breaking hybrid that could only come from the four of them. As soon as they submitted Most Normal for mastering, they began the patient search for their next destination. Over time, the process led them to their fourth album Pugnello, the boldest left turn in a career full of them.</p>
+      <p>In the four years since Most Normal, each member embarked on other artistic endeavors. Kiely fostered a newfound love of painting, Faulkner played drums for Lankum on the road, Fox became an increasingly in-demand producer guiding ascendant acts like Sprints, Lambrini Girls, and Mandy, Indiana, while Duggan Borges launched his solo project the Null Club with collaborations featuring Mandy, Indiana's Valentine Caulfield, the Horrors' Faris Badwan, Miss Grit, and Brooklyn MC Elucid. All their extracurricular activity existed in parallel with the exploratory route towards Pugnello, but also informed the band as they reconvened to crystallize the album's vision.</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -907,6 +1265,11 @@ document.getElementById('n-order').addEventListener('click', e => {
   document.getElementById('s-record').scrollIntoView({ behavior: 'smooth' });
 });
 
+document.getElementById('n-lyrics').addEventListener('click', e => {
+  e.preventDefault();
+  document.getElementById('lyrics').scrollIntoView({ behavior: 'smooth' });
+});
+
 document.getElementById('n-live').addEventListener('click', e => {
   e.preventDefault();
   document.getElementById('s-live').scrollIntoView({ behavior: 'smooth' });
@@ -932,6 +1295,37 @@ if (location.hash === '#live' || location.pathname.endsWith('/live') || location
     b.classList.toggle('hidden', showingA);
   }, 2500);
 })();
+
+/* ── LYRICS NAV ── */
+document.getElementById('n-lyrics').addEventListener('click', e => {
+  e.preventDefault();
+  document.getElementById('lyrics').scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ── BLURB MODAL ── */
+const blurbModal = document.getElementById('blurb-modal');
+document.getElementById('blurb-read-more').addEventListener('click', () => {
+  blurbModal.classList.add('open');
+});
+document.getElementById('blurb-modal-close').addEventListener('click', () => {
+  blurbModal.classList.remove('open');
+});
+blurbModal.addEventListener('click', e => {
+  if (e.target === blurbModal) blurbModal.classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') blurbModal.classList.remove('open');
+});
+
+/* ── LYRICS EXPAND ── */
+document.querySelectorAll('#lyrics-list .lyrics-item:not(.unavailable) .lyrics-track').forEach(track => {
+  track.addEventListener('click', () => {
+    const item = track.closest('.lyrics-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('#lyrics-list .lyrics-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
 
 /* ── HERO FADE ON SCROLL ── */
 const heroEls = [
