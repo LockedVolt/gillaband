@@ -912,6 +912,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="record-img-wrap">
           <img class="record-img" id="packshot-a" src="1x1_LP_01.jpg" alt="Gilla Band — Pugnello LP front">
           <img class="record-img hidden" id="packshot-b" src="1x1_LP_02.jpg" alt="Gilla Band — Pugnello LP back">
+          <img class="record-img hidden" id="packshot-c" src="1x1_LPEX_01.jpg" alt="Gilla Band — Pugnello LP exclusive front">
+          <img class="record-img hidden" id="packshot-d" src="1x1_LPEX_02.jpg" alt="Gilla Band — Pugnello LP exclusive back">
         </div>
       </a>
       <div class="record-info">
@@ -1286,13 +1288,17 @@ if (location.hash === '#live' || location.pathname.endsWith('/live') || location
 
 /* ── PACKSHOT FLIP ── */
 (function () {
-  const a = document.getElementById('packshot-a');
-  const b = document.getElementById('packshot-b');
-  let showingA = true;
+  const slides = [
+    document.getElementById('packshot-a'),
+    document.getElementById('packshot-b'),
+    document.getElementById('packshot-c'),
+    document.getElementById('packshot-d'),
+  ];
+  let current = 0;
   setInterval(() => {
-    showingA = !showingA;
-    a.classList.toggle('hidden', !showingA);
-    b.classList.toggle('hidden', showingA);
+    slides[current].classList.add('hidden');
+    current = (current + 1) % slides.length;
+    slides[current].classList.remove('hidden');
   }, 2500);
 })();
 
