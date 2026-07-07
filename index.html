@@ -4,19 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<title>GILLA BAND — GIRAFFE</title>
-<meta name="description" content="Giraffe — the new single from Gilla Band. Out now on all platforms." />
+<title>GILLA BAND</title>
+<meta name="description" content="Pugnello — the new Album from Gilla Band. Out now on all platforms." />
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.gillaband.com/" />
 <meta property="og:site_name" content="Gilla Band"/>
-<meta property="og:title" content="Gilla Band — Giraffe"/>
+<meta property="og:title" content="Gilla Band — Pugnello"/>
 <meta property="og:url" content="https://www.gillaband.com/"/>
 <meta property="og:type" content="website"/>
-<meta property="og:image" content="https://www.gillaband.com/bg.jpg"/>
+<meta property="og:image" content="https://www.gillaband.com/Gillaband_Panitings-2.png"/>
 <meta itemprop="name" content="Gilla Band"/>
 <meta itemprop="url" content="https://www.gillaband.com/"/>
-<meta name="twitter:title" content="Gilla Band — Giraffe"/>
-<meta name="twitter:image" content="https://www.gillaband.com/bg.jpg"/>
+<meta name="twitter:title" content="Gilla Band — Pugnello"/>
+<meta name="twitter:image" content="https://www.gillaband.com/Gillaband_Panitings-2.png"/>
 <meta name="twitter:url" content="https://www.gillaband.com/"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="apple-touch-icon" sizes="57x57" href="favicons/icons/favicon-57x57.png">
@@ -223,11 +223,43 @@ nav:hover .nav-item:hover {
 }
 
 /* ── VIDEO SECTION ── */
-#s-video iframe {
+.video-carousel {
+  display: flex;
+  gap: 3vw;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.video-carousel::-webkit-scrollbar { display: none; }
+.video-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+.video-item iframe {
   width: 100%;
   aspect-ratio: 16/9;
   border: none;
   display: block;
+}
+.video-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6em;
+  margin-top: 2.5vh;
+}
+.video-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.video-dot.active {
+  background: #ffffff;
 }
 
 /* ── RECORD SECTION ── */
@@ -777,11 +809,26 @@ p{
     font-size: clamp(22px, 3.3vw, 65px);
     padding: 0.3em 0;
   }
-  .site-title {
-    left: 54vw;
-    right: 5vw;
+  .title-group {
+    position: fixed;
+    top: 25.9vh;
+    left: 6vw;
+    right: 6vw;
+    z-index: 10;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 1.2em;
+  }
+  .site-title,
+  .album-title {
+    position: static;
     font-size: 1em;
-    white-space: normal;
+    white-space: nowrap;
+  }
+  .title-group .title-gap {
+    display: none;
   }
   .section {
     padding: 7vh 6vw;
@@ -827,8 +874,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ── HERO ── -->
 <div class="hero"></div>
 
-<div class="site-title">GILLA BAND<span class="title-gap"></span></div>
-<div class="album-title">Pugnello<span class="title-gap"></span></div>
+<div class="title-group">
+  <div class="site-title">GILLA BAND<span class="title-gap"></span></div>
+  <div class="album-title">Pugnello<span class="title-gap"></span></div>
+</div>
 
 <nav>
   <a class="nav-item" id="n-listen" href="https://gillaband.ffm.to/giraffe">
@@ -901,7 +950,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- VIDEO -->
   <section class="section" id="s-video">
     <div class="section-label">Watch</div>
-    <iframe id="yt-embed" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="video-carousel" id="video-carousel"></div>
+    <div class="video-dots" id="video-dots"></div>
   </section>
 
   <!-- RECORD / ORDER -->
@@ -1218,7 +1268,7 @@ She chased me out the door with a hairbrush demanding that I would wear a suitab
     <script>if(!window.mootrack){ !function(t,n,e,o,a){function d(t){var n=~~(Date.now()/3e5),o=document.createElement(e);o.async=!0,o.src=t+"?ts="+n;var a=document.getElementsByTagName(e)[0];a.parentNode.insertBefore(o,a)}t.MooTrackerObject=a,t[a]=t[a]||function(){return t[a].q?void t[a].q.push(arguments):void(t[a].q=[arguments])},window.attachEvent?window.attachEvent("onload",d.bind(this,o)):window.addEventListener("load",d.bind(this,o),!1)}(window,document,"script","https://cdn.stat-track.com/statics/moosend-tracking.min.js","mootrack"); } mootrack('loadForm', '0da85ba0fe634666ad78ab35750181e4');</script>
   </section>
 
-  <footer class="site-footer">© Gilla Band</footer>
+  <footer class="site-footer">© 2026 Gilla Band</footer>
 
 </div>
 
@@ -1236,16 +1286,52 @@ She chased me out the door with a hairbrush demanding that I would wear a suitab
 <script>
 /* ── CONFIGURE ── */
 const ORDER_URL         = '';       // ← your shop / Bandcamp link
-const WATCH_SRC         = 'https://youtu.be/Xtjauo-6jfY';
+const WATCH_VIDEOS      = [         // ← add more YouTube links to grow the carousel
+  'https://youtu.be/Xtjauo-6jfY',
+  'https://www.youtube.com/watch?v=Qukks60Vwfs',
+];
 
-/* ── WIRE UP VIDEO EMBED ── */
+/* ── WIRE UP VIDEO CAROUSEL ── */
 (function () {
-  const s = WATCH_SRC.trim();
-  const m = s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
-  const id = m ? m[1] : null;
-  if (id) {
-    document.getElementById('yt-embed').src =
-      'https://www.youtube.com/embed/' + id + '?rel=0';
+  const carousel = document.getElementById('video-carousel');
+  const dotsWrap = document.getElementById('video-dots');
+
+  const ids = WATCH_VIDEOS
+    .map(s => (s || '').trim())
+    .filter(Boolean)
+    .map(s => {
+      const m = s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+      return m ? m[1] : null;
+    })
+    .filter(Boolean);
+
+  ids.forEach((id, i) => {
+    const item = document.createElement('div');
+    item.className = 'video-item';
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/' + id + '?rel=0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    item.appendChild(iframe);
+    carousel.appendChild(item);
+
+    if (ids.length > 1) {
+      const dot = document.createElement('button');
+      dot.className = 'video-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Video ' + (i + 1));
+      dot.addEventListener('click', () => {
+        carousel.scrollTo({ left: item.offsetLeft, behavior: 'smooth' });
+      });
+      dotsWrap.appendChild(dot);
+    }
+  });
+
+  if (ids.length > 1) {
+    const dots = dotsWrap.querySelectorAll('.video-dot');
+    carousel.addEventListener('scroll', () => {
+      const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }, { passive: true });
   }
 })();
 
@@ -1310,9 +1396,12 @@ document.getElementById('n-lyrics').addEventListener('click', e => {
 
 /* ── BLURB MODAL ── */
 const blurbModal = document.getElementById('blurb-modal');
-document.getElementById('blurb-read-more').addEventListener('click', () => {
-  blurbModal.classList.add('open');
-});
+const blurbReadMore = document.getElementById('blurb-read-more');
+if (blurbReadMore) {
+  blurbReadMore.addEventListener('click', () => {
+    blurbModal.classList.add('open');
+  });
+}
 document.getElementById('blurb-modal-close').addEventListener('click', () => {
   blurbModal.classList.remove('open');
 });
@@ -1337,6 +1426,7 @@ document.querySelectorAll('#lyrics-list .lyrics-item:not(.unavailable) .lyrics-t
 const heroEls = [
   document.querySelector('.bg'),
   document.querySelector('.site-title'),
+  document.querySelector('.album-title'),
   document.querySelector('nav'),
   document.querySelector('.social-links'),
   document.getElementById('scroll-hint'),
