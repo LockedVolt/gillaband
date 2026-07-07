@@ -242,6 +242,41 @@ nav:hover .nav-item:hover {
   border: none;
   display: block;
 }
+.video-carousel-wrap {
+  position: relative;
+}
+.video-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: #ffffff;
+  font-size: 1.6em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+.video-arrow:hover {
+  background: rgba(0,0,0,0.75);
+}
+.video-arrow--prev {
+  left: 1vw;
+}
+.video-arrow--next {
+  right: 1vw;
+}
+.video-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
 .video-dots {
   display: flex;
   justify-content: center;
@@ -950,7 +985,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- VIDEO -->
   <section class="section" id="s-video">
     <div class="section-label">Watch</div>
-    <div class="video-carousel" id="video-carousel"></div>
+    <div class="video-carousel-wrap">
+      <button class="video-arrow video-arrow--prev" id="video-prev" aria-label="Previous video">&#8249;</button>
+      <div class="video-carousel" id="video-carousel"></div>
+      <button class="video-arrow video-arrow--next" id="video-next" aria-label="Next video">&#8250;</button>
+    </div>
     <div class="video-dots" id="video-dots"></div>
   </section>
 
@@ -1286,15 +1325,17 @@ She chased me out the door with a hairbrush demanding that I would wear a suitab
 <script>
 /* ── CONFIGURE ── */
 const ORDER_URL         = '';       // ← your shop / Bandcamp link
-const WATCH_VIDEOS      = [         // ← add more YouTube links to grow the carousel
-  'https://youtu.be/Xtjauo-6jfY',
+const WATCH_VIDEOS      = [         // ← newest first; add more YouTube links to grow the carousel
   'https://www.youtube.com/watch?v=Qukks60Vwfs',
+  'https://youtu.be/Xtjauo-6jfY',
 ];
 
 /* ── WIRE UP VIDEO CAROUSEL ── */
 (function () {
   const carousel = document.getElementById('video-carousel');
   const dotsWrap = document.getElementById('video-dots');
+  const prevBtn  = document.getElementById('video-prev');
+  const nextBtn  = document.getElementById('video-next');
 
   const ids = WATCH_VIDEOS
     .map(s => (s || '').trim())
@@ -1328,10 +1369,26 @@ const WATCH_VIDEOS      = [         // ← add more YouTube links to grow the ca
 
   if (ids.length > 1) {
     const dots = dotsWrap.querySelectorAll('.video-dot');
-    carousel.addEventListener('scroll', () => {
+
+    const updateState = () => {
       const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
       dots.forEach((d, i) => d.classList.toggle('active', i === index));
-    }, { passive: true });
+      prevBtn.disabled = carousel.scrollLeft <= 0;
+      nextBtn.disabled = carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 1;
+    };
+
+    carousel.addEventListener('scroll', updateState, { passive: true });
+    prevBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: -carousel.clientWidth, behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
+    });
+
+    updateState();
+  } else {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
   }
 })();
 
